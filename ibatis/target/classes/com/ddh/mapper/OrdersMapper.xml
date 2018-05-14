@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ddh.mapper.OrdersMapper">
+     <!--<resultMap id="orders" type="Orders">-->
+        <!--<result column="user_id" property="userId"/>-->
+    <!--</resultMap>-->
+    <!--<select id="selectOrdersList" resultMap="orders">-->
+        <!--select id, user_id,number,createtime,note from orders;-->
+    <!--</select>-->
+    <resultMap id="orders" type="Orders">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createtime"/>
+        <association property="user" javaType="User">
+           <id column="user_id" property="id"/>
+            <result column="username" property="username"/>
+        </association>
+     </resultMap>
+    <select id="selectOrders" resultMap="orders">
+        select o.id,o.user_id,o.number,o.createtime,u.username from orders o left join user u on o.user_id=u.id;
+    </select>
+    <resultMap id="user" type="User">
+        <id column="user_id" property="id"/>
+        <result column="username" property="username"/>
+        <collection property="ordersList" ofType="Orders">
+            <result column="id" property="id"/>
+            <result column="user_id" property="userId"/>
+            <result column="number" property="number"/>
+            <result column="createtime" property="createtime"/>
+        </collection>
+    </resultMap>
+    <select id="selectUserList" resultMap="user">
+        select u.username, o.id,o.user_id,o.number,o.createtime from user u left join orders o on o.user_id=u.id;
+    </select>
+</mapper>
