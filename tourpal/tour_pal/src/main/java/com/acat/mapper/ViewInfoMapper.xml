@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.acat.mapper.ViewInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.acat.po.ViewInfo" >
+    <id column="view_id" property="viewId" jdbcType="INTEGER" />
+    <result column="user_number" property="userNumber" jdbcType="VARCHAR" />
+    <result column="view_name" property="viewName" jdbcType="VARCHAR" />
+    <result column="view_time" property="viewTime" jdbcType="TIMESTAMP" />
+    <result column="view_photo" property="viewPhoto" jdbcType="VARCHAR" />
+    <result column="view_desc" property="viewDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    view_id, user_number, view_name, view_time, view_photo, view_desc
+  </sql>
+  
+  <select id="getViewInfoList" parameterType="com.acat.po.ViewInfo" resultMap="BaseResultMap">
+  	select * from view_info 
+  	<where>
+  		<if test="viewName!=null and viewName!=''">
+  			and view_name like #{viewName}
+  		</if>
+  	</where>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from view_info
+    where view_id = #{viewId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from view_info
+    where view_id = #{viewId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.acat.po.ViewInfo" >
+    insert into view_info (view_id, user_number, view_name, 
+      view_time, view_photo, view_desc
+      )
+    values (#{viewId,jdbcType=INTEGER}, #{userNumber,jdbcType=VARCHAR}, #{viewName,jdbcType=VARCHAR}, 
+      #{viewTime,jdbcType=TIMESTAMP}, #{viewPhoto,jdbcType=VARCHAR}, #{viewDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.acat.po.ViewInfo" >
+    insert into view_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="viewId != null" >
+        view_id,
+      </if>
+      <if test="userNumber != null" >
+        user_number,
+      </if>
+      <if test="viewName != null" >
+        view_name,
+      </if>
+      <if test="viewTime != null" >
+        view_time,
+      </if>
+      <if test="viewPhoto != null" >
+        view_photo,
+      </if>
+      <if test="viewDesc != null" >
+        view_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="viewId != null" >
+        #{viewId,jdbcType=INTEGER},
+      </if>
+      <if test="userNumber != null" >
+        #{userNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="viewName != null" >
+        #{viewName,jdbcType=VARCHAR},
+      </if>
+      <if test="viewTime != null" >
+        #{viewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="viewPhoto != null" >
+        #{viewPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="viewDesc != null" >
+        #{viewDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.acat.po.ViewInfo" >
+    update view_info
+    <set >
+      <if test="userNumber != null" >
+        user_number = #{userNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="viewName != null" >
+        view_name = #{viewName,jdbcType=VARCHAR},
+      </if>
+      <if test="viewTime != null" >
+        view_time = #{viewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="viewPhoto != null" >
+        view_photo = #{viewPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="viewDesc != null" >
+        view_desc = #{viewDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where view_id = #{viewId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.acat.po.ViewInfo" >
+    update view_info
+    set user_number = #{userNumber,jdbcType=VARCHAR},
+      view_name = #{viewName,jdbcType=VARCHAR},
+      view_time = #{viewTime,jdbcType=TIMESTAMP},
+      view_photo = #{viewPhoto,jdbcType=VARCHAR},
+      view_desc = #{viewDesc,jdbcType=VARCHAR}
+    where view_id = #{viewId,jdbcType=INTEGER}
+  </update>
+</mapper>
