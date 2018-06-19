@@ -1,0 +1,43 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.acat.spring.boot'
+version = '1.0.0'
+sourceCompatibility = 1.8
+
+
+repositories {
+	mavenCentral()
+}
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	compileOnly('org.projectlombok:lombok')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('mysql:mysql-connector-java:5.1.42')
+	compile('org.apache.commons:commons-lang3:3.5')
+	runtime("com.h2database:h2:1.4.193")
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile('es.nitaur.markdown:txtmark:0.16')
+	compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE')
+	compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+	compile('net.java.dev.jna:jna:4.3.0')
+
+}
