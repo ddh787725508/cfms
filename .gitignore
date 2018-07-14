@@ -1,0 +1,9 @@
+**/.idea/
+**/.settings/
+**/out/
+**/target/
+**/.DS_Store
+**/*.iml
+**/.mvn/
+**/mvn*
+
